@@ -57,12 +57,14 @@ public class ChallengeScene extends BaseScene {
 
 
         //For now, let us just add a button that starts the game. I'm sure you'll do something way better.
-        var button = new Button("fresh");
+        var freshButton = new Button("fresh");
         var restartButton = new Button("restart");
+        var scoreButton = new Button("see scores");
 
 
         Label lives=new Label("lives: "+ game.getLives());
         Label grades = new Label("scores: "+ game.getGrades());
+        Label highestScores = new Label("The highest current score is: " + game.getHighest());
 
         //绑定点击刷新事件
         EventHandler eh = a -> {
@@ -71,13 +73,15 @@ public class ChallengeScene extends BaseScene {
         };
         root.setOnMouseClicked(eh);
 
+        //刷新piece
         EventHandler ehButton = a -> {
             this.fresh();
             lives.setText("lives: "+ game.getLives());
             grades.setText("scores: "+ game.getGrades());
         };
-        button.setOnAction(ehButton);
+        freshButton.setOnAction(ehButton);
 
+        //重启游戏
         EventHandler ehButtonRestart = a -> {
             this.restart();
             lives.setText("lives: "+ game.getLives());
@@ -85,15 +89,23 @@ public class ChallengeScene extends BaseScene {
         };
         restartButton.setOnAction(ehButtonRestart);
 
+        //打开分数面板
+        EventHandler ehButtonScore = a -> {
+            this.score();
+        };
+        restartButton.setOnAction(ehButtonScore);
+
         //按钮布局
-        HBox hBox = new HBox(4);     //首先创建一个HBox对象
+        HBox hBox = new HBox(6);     //首先创建一个HBox对象
         hBox.setStyle("-fx-background-color: gold");
 
-        //然后，在面板上添加2个按钮，代码如下：
-        hBox.getChildren().add(button);
+        //然后，在面板上添加6个按钮，代码如下：
+        hBox.getChildren().add(freshButton);
         hBox.getChildren().add(restartButton);
+        hBox.getChildren().add(scoreButton);
         hBox.getChildren().add(lives);
         hBox.getChildren().add(grades);
+        hBox.getChildren().add(highestScores);
 
         mainPane.setBottom(hBox);
 
@@ -114,6 +126,7 @@ public class ChallengeScene extends BaseScene {
         board.setOnBlockClick(this::blockClickedWithShape);
         choiceBoard.setOnBlockClick(this::blockClickedWithRotate);
         choiceBoardNext.setOnBlockClick(this::blockClickedWithSwap);
+
     }
 
     /**
@@ -150,6 +163,10 @@ public class ChallengeScene extends BaseScene {
 
     private void restart(){
         game.restart();
+    }
+
+    private void score(){
+        gameWindow.startScore();
     }
 
     /**

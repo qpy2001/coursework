@@ -47,6 +47,8 @@ public class Game {
 
     protected Integer lives = 3;
 
+    protected Integer highest = 0;
+
     protected Random random = new Random();
 
     /**
@@ -223,11 +225,11 @@ public class Game {
         if(count == 0){
             System.out.println("grades: "+grades);
             return;
-        } else if(count == 1 ) {
+        } else if(count == 1 ) { //有一行、列满的时候，一行一列值50
             grades += 50;
-        }else if(count == 2){
+        }else if(count == 2){//有2行、列满的时候，一行一列值70，140
             grades += 140;
-        }else if(count == 3){
+        }else if(count == 3){//有3行、列满的时候，一行一列值90,270
             grades += 270;
         }else if(count == 4){
             grades += 440;
@@ -236,7 +238,7 @@ public class Game {
         }
         System.out.println("grades："+grades);
 
-        //清楚行和列
+        //清除行和列
         for(int i=0;i< 5;i++){
             if(rows[i] == 1){
                 for(int j=0;j<5;j++){
@@ -320,4 +322,6 @@ public class Game {
     public int getGrades(){
         return grades;
     }
+
+    public int getHighest(){return highest;}
 }
