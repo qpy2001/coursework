@@ -43,6 +43,8 @@ public class ScoreScene extends BaseScene{
         challengePane.getChildren().add(mainPane);
 
 
+
+
     }
 
 

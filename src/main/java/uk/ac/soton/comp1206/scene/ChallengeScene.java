@@ -93,7 +93,7 @@ public class ChallengeScene extends BaseScene {
         EventHandler ehButtonScore = a -> {
             this.score();
         };
-        restartButton.setOnAction(ehButtonScore);
+        scoreButton.setOnAction(ehButtonScore);
 
         //按钮布局
         HBox hBox = new HBox(6);     //首先创建一个HBox对象
