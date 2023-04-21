@@ -1,8 +1,12 @@
 package uk.ac.soton.comp1206.game;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp1206.component.GameBlock;
+import uk.ac.soton.comp1206.ui.GameWindow;
+import uk.ac.soton.comp1206.utils.Clock;
+import uk.ac.soton.comp1206.utils.TxtUtils;
 
 import java.util.Random;
 
@@ -47,9 +51,9 @@ public class Game {
 
     protected Integer lives = 3;
 
-    protected Integer highest = 0;
-
     protected Random random = new Random();
+
+    public Clock clock;
 
     /**
      * Create a new game with the specified rows and columns. Creates a corresponding grid model.
@@ -198,6 +202,7 @@ public class Game {
                 }
             }
         }
+        clock.freshTime();
         return true;
     }
 
@@ -257,6 +262,8 @@ public class Game {
     public void fresh(){
         if(lives == 0){
             System.out.println("you have "+ lives +" lives left");
+            TxtUtils.writeTxt("src/main/scores.txt","localPlayer "+grades);
+            clock.overAndSeeScores();
             return;
         }
         //Create first new game piece model to represent the game piece state
@@ -268,6 +275,7 @@ public class Game {
         this.nextChoiceGrid.setGrid(gamePiece2.getBlocks());
 
         lives --;
+        clock.freshTime();
         System.out.println("you have "+ lives +" lives left");
     }
 
@@ -323,5 +331,14 @@ public class Game {
         return grades;
     }
 
-    public int getHighest(){return highest;}
+    public String getHighest(){return TxtUtils.getMaxScores("src/main/scores.txt");}
+
+    public Clock getClock(GameWindow gameWindow, Game game){
+            clock = new Clock(gameWindow, game);
+         return clock;
+    }
+
+    public Clock getClock(){
+        return clock;
+    }
 }

@@ -14,6 +14,7 @@ import uk.ac.soton.comp1206.game.Game;
 import uk.ac.soton.comp1206.game.GamePiece;
 import uk.ac.soton.comp1206.ui.GamePane;
 import uk.ac.soton.comp1206.ui.GameWindow;
+import uk.ac.soton.comp1206.utils.Clock;
 
 /**
  * The Single Player challenge scene. Holds the UI for the single player challenge mode in the game.
@@ -64,7 +65,8 @@ public class ChallengeScene extends BaseScene {
 
         Label lives=new Label("lives: "+ game.getLives());
         Label grades = new Label("scores: "+ game.getGrades());
-        Label highestScores = new Label("The highest current score is: " + game.getHighest());
+        Label highestScores = new Label("The highest is: " + game.getHighest());
+        Label leftTime = game.getClock(gameWindow,game).getLabel();
 
         //绑定点击刷新事件
         EventHandler eh = a -> {
@@ -97,15 +99,15 @@ public class ChallengeScene extends BaseScene {
 
         //按钮布局
         HBox hBox = new HBox(6);     //首先创建一个HBox对象
-        hBox.setStyle("-fx-background-color: gold");
+        hBox.setStyle("-fx-background-color: green");
 
         //然后，在面板上添加6个按钮，代码如下：
         hBox.getChildren().add(freshButton);
         hBox.getChildren().add(restartButton);
-        hBox.getChildren().add(scoreButton);
         hBox.getChildren().add(lives);
         hBox.getChildren().add(grades);
         hBox.getChildren().add(highestScores);
+        hBox.getChildren().add(leftTime);
 
         mainPane.setBottom(hBox);
 
