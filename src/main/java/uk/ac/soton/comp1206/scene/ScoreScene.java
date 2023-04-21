@@ -1,5 +1,7 @@
 package uk.ac.soton.comp1206.scene;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
@@ -43,9 +45,20 @@ public class ScoreScene extends BaseScene{
         challengePane.getChildren().add(mainPane);
 
 
+        var button = new Button("Restart the game");
+        mainPane.setCenter(button);
 
+        //Bind the button action to the startGame method in the menu
+        button.setOnAction(this::startGame);
 
     }
 
+    /**
+     * Handle when the Start Game button is pressed
+     * @param event event
+     */
+    private void startGame(ActionEvent event) {
+        gameWindow.startChallenge();
+    }
 
 }
