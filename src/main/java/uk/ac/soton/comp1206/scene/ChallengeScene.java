@@ -30,6 +30,7 @@ public class ChallengeScene extends BaseScene {
      */
     public ChallengeScene(GameWindow gameWindow) {
         super(gameWindow);
+        gameWindow.playMusic("src/main/resources/music/game.wav");
         logger.info("Creating Challenge Scene");
     }
 

@@ -28,6 +28,7 @@ public class ScoreScene extends BaseScene{
      */
     public ScoreScene(GameWindow gameWindow) {
         super(gameWindow);
+        gameWindow.playMusic("src/main/resources/music/end.wav");
         logger.info("Creating Score Scene");
     }
 

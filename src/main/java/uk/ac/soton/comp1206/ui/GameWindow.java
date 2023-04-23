@@ -3,6 +3,8 @@ package uk.ac.soton.comp1206.ui;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -11,6 +13,11 @@ import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp1206.App;
 import uk.ac.soton.comp1206.network.Communicator;
 import uk.ac.soton.comp1206.scene.*;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * The GameWindow is the single window for the game where everything takes place. To move between screens in the game,
@@ -30,6 +37,8 @@ public class GameWindow {
 
     private BaseScene currentScene;
     private Scene scene;
+
+    MediaPlayer mp3;
 
     //final Communicator communicator;
 
@@ -164,4 +173,29 @@ public class GameWindow {
 //    public Communicator getCommunicator() {
 //        return communicator;
 //    }
+
+
+    public void playMusic(String type){
+        //打开歌曲文件，此时采用相对路径，即本工程目录下
+        File file1 = new File(type);
+        URI uri1 = file1.toURI();		//先转成URI
+        URL url1 = null;		//再转为URL
+        try {
+            url1 = uri1.toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String Mp3play1 = url1.toString();	//将URL转换为字符串
+
+//Media为了表示一个文件，MediaPlayer则为了将这个文件播放
+        Media media1 = new Media(Mp3play1);	//新建一个Media，使它与得到的URL相关
+        if(mp3 != null){
+            mp3.stop();
+        }
+        mp3 = new MediaPlayer(media1);	//将media1传与新建的MediaPlayer
+
+//然后播放
+        mp3.play();
+    }
+
 }

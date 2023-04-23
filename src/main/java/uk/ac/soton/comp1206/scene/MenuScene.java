@@ -22,6 +22,7 @@ public class MenuScene extends BaseScene {
      */
     public MenuScene(GameWindow gameWindow) {
         super(gameWindow);
+        gameWindow.playMusic("src/main/resources/music/menu.mp3");
         logger.info("Creating Menu Scene");
     }
 
@@ -69,6 +70,7 @@ public class MenuScene extends BaseScene {
      * @param event event
      */
     private void startGame(ActionEvent event) {
+
         gameWindow.startChallenge();
     }
 

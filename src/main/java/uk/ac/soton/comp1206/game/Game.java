@@ -1,6 +1,8 @@
 package uk.ac.soton.comp1206.game;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp1206.component.GameBlock;
@@ -8,6 +10,10 @@ import uk.ac.soton.comp1206.ui.GameWindow;
 import uk.ac.soton.comp1206.utils.Clock;
 import uk.ac.soton.comp1206.utils.TxtUtils;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.Random;
 
 /**
@@ -54,6 +60,8 @@ public class Game {
     protected Random random = new Random();
 
     public Clock clock;
+
+
 
     /**
      * Create a new game with the specified rows and columns. Creates a corresponding grid model.
@@ -341,4 +349,6 @@ public class Game {
     public Clock getClock(){
         return clock;
     }
+
+
 }
