@@ -61,6 +61,8 @@ public class Game {
 
     public Clock clock;
 
+    MediaPlayer mp3Sound;
+
 
 
     /**
@@ -185,6 +187,7 @@ public class Game {
 
     public void blockClickedWithRotate(GameBlock gameBlock){
         gamePiece.rotate();
+        playSound("src/main/resources/sounds/rotate.wav");
         choiceGrid.setGrid(gamePiece.getBlocks());
     }
 
@@ -232,6 +235,10 @@ public class Game {
                 count++;
                 cols[i] = 1;
             }
+        }
+
+        if(count != 0){
+            playSound("src/main/resources/sounds/clear.wav");
         }
 
         //计分
@@ -348,6 +355,28 @@ public class Game {
 
     public Clock getClock(){
         return clock;
+    }
+
+    public void playSound(String type){
+        //打开歌曲文件，此时采用相对路径，即本工程目录下
+        File file1 = new File(type);
+        URI uri1 = file1.toURI();		//先转成URI
+        URL url1 = null;		//再转为URL
+        try {
+            url1 = uri1.toURL();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String Mp3play1 = url1.toString();	//将URL转换为字符串
+
+//Media为了表示一个文件，MediaPlayer则为了将这个文件播放
+        Media media1 = new Media(Mp3play1);	//新建一个Media，使它与得到的URL相关
+        if(mp3Sound!= null){
+            mp3Sound.stop();
+        }
+        mp3Sound = new MediaPlayer(media1);	//将media1传与新建的MediaPlayer
+//然后播放
+        mp3Sound.play();
     }
 
 

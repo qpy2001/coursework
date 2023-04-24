@@ -193,9 +193,11 @@ public class GameWindow {
             mp3.stop();
         }
         mp3 = new MediaPlayer(media1);	//将media1传与新建的MediaPlayer
-
+        mp3.setCycleCount(20);
 //然后播放
         mp3.play();
     }
+
+
 
 }
