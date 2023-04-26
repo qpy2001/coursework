@@ -115,13 +115,13 @@ public class ChallengeScene extends BaseScene {
 
 
         //5*5的大界面
-        var board = new GameBoard(game.getGrid(),gameWindow.getWidth()/2,gameWindow.getWidth()/2);
+        var board = new GameBoard(game.getGrid(),gameWindow.getWidth()/2,gameWindow.getWidth()/2,false);
         mainPane.setLeft(board);
 
 
         //两个3*3的选择小界面
-        var choiceBoard = new GameBoard(game.getChoiceGrid(),gameWindow.getWidth()/5,gameWindow.getWidth()/5);
-        var choiceBoardNext = new GameBoard(game.getNextChoiceGrid(),gameWindow.getWidth()/7,gameWindow.getWidth()/7);
+        var choiceBoard = new GameBoard(game.getChoiceGrid(),gameWindow.getWidth()/5,gameWindow.getWidth()/5,true);
+        var choiceBoardNext = new GameBoard(game.getNextChoiceGrid(),gameWindow.getWidth()/7,gameWindow.getWidth()/7,true);
         mainPane.setCenter(choiceBoard);
         mainPane.setRight(choiceBoardNext);
 

@@ -98,6 +98,8 @@ public class GameWindow {
         loadScene(new ScoreScene(this));
     }
 
+    public void startInstruction(){loadScene(new InstructionScene(this));}
+
     /**
      * Setup the default settings for the stage itself (the window), such as the title and minimum width and height.
      */

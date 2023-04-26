@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Game class handles the main logic, state and properties of the TetrECS game. Methods to manipulate the game state
@@ -262,16 +263,41 @@ public class Game {
         for(int i=0;i< 5;i++){
             if(rows[i] == 1){
                 for(int j=0;j<5;j++){
-                    grid.set(i,j,0);
+                    grid.set(i,j,16);
                 }
             }
 
             if(cols[i] == 1){
                 for(int j=0;j<5;j++){
-                    grid.set(j,i,0);
+                    grid.set(j,i,16);
                 }
             }
         }
+
+        new Thread(){
+            public void run(){
+                try {
+                    Thread.sleep(200);
+                    //清除行和列
+                    for(int i=0;i< 5;i++){
+                        if(rows[i] == 1){
+                            for(int j=0;j<5;j++){
+                                grid.set(i,j,0);
+                            }
+                        }
+
+                        if(cols[i] == 1){
+                            for(int j=0;j<5;j++){
+                                grid.set(j,i,0);
+                            }
+                        }
+                    }
+                } catch (InterruptedException e) { }
+
+            }
+
+        }.start();
+
     }
 
     public void fresh(){

@@ -1,7 +1,9 @@
 package uk.ac.soton.comp1206.component;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.soton.comp1206.event.BlockClickedListener;
@@ -64,7 +66,7 @@ public class GameBoard extends GridPane {
      * @param width the visual width
      * @param height the visual height
      */
-    public GameBoard(Grid grid, double width, double height) {
+    public GameBoard(Grid grid, double width, double height, Boolean isGamePiece) {
         this.cols = grid.getCols();
         this.rows = grid.getRows();
         this.width = width;
@@ -72,43 +74,10 @@ public class GameBoard extends GridPane {
         this.grid = grid;
 
         //Build the GameBoard
-        build();
+        build(isGamePiece);
     }
 
-    public GameBoard(GamePiece gamePiece, double width, double height) {
-        this.cols = gamePiece.getBlocks().length;
-        this.rows = gamePiece.getBlocks()[0].length;
-        this.width = width;
-        this.height = height;
-        this.grid = new Grid(cols,rows);
-        for(int i=0;i<cols;i++){
-            for(int j=0;j<rows;j++){
-                grid.set(i,j,gamePiece.getBlocks()[i][j]);
-            }
-        }
-        //Build the GameBoard
-        build();
-    }
 
-    /**
-     * Create a new GameBoard with it's own internal grid, specifying the number of columns and rows, along with the
-     * visual width and height.
-     *
-     * @param cols number of columns for internal grid
-     * @param rows number of rows for internal grid
-     * @param width the visual width
-     * @param height the visual height
-     */
-    public GameBoard(int cols, int rows, double width, double height) {
-        this.cols = cols;
-        this.rows = rows;
-        this.width = width;
-        this.height = height;
-        this.grid = new Grid(cols,rows);
-
-        //Build the GameBoard
-        build();
-    }
 
     /**
      * Get a specific block from the GameBoard, specified by it's row and column
@@ -123,7 +92,7 @@ public class GameBoard extends GridPane {
     /**
      * Build the GameBoard by creating a block at every x and y column and row
      */
-    protected void build() {
+    protected void build(Boolean isGamePiece) {
         logger.info("Building grid: {} x {}",cols,rows);
 
         setMaxWidth(width);
@@ -135,7 +104,7 @@ public class GameBoard extends GridPane {
 
         for(var y = 0; y < rows; y++) {
             for (var x = 0; x < cols; x++) {
-                createBlock(x,y);
+                createBlock(x,y,isGamePiece);
             }
         }
     }
@@ -145,13 +114,20 @@ public class GameBoard extends GridPane {
      * @param x column
      * @param y row
      */
-    protected GameBlock createBlock(int x, int y) {
+    protected GameBlock createBlock(int x, int y,Boolean isGamePiece) {
         var blockWidth = width / cols;
         var blockHeight = height / rows;
 
         //Create a new GameBlock UI component
         GameBlock block = new GameBlock(this, x, y, blockWidth, blockHeight);
 
+
+        if(x == 1 && y ==1 && isGamePiece){
+            GraphicsContext gc = block.getGraphicsContext2D();
+            //Border
+            gc.strokeRect(0,0,width,height);
+            gc.setLineWidth(5);
+        }
         //Add to the GridPane
         add(block,x,y);
 

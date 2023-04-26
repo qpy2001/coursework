@@ -40,7 +40,8 @@ public class GameBlock extends Canvas {
             Color.AQUAMARINE,
             Color.BLUE,
             Color.MEDIUMPURPLE,
-            Color.PURPLE
+            Color.PURPLE,
+            Color.BLACK
     };
 
     private final GameBoard gameBoard;
@@ -110,6 +111,8 @@ public class GameBlock extends Canvas {
             //If the block is not empty, paint with the colour represented by the value
             paintColor(COLOURS[value.get()]);
         }
+
+
     }
 
     /**
